@@ -45,6 +45,28 @@ createApp();
 const newData = [];
 
 
+
+//Funzione Random Date 
+function randomDate(date1, date2){
+    function randomValueBetween(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+    var date1 = date1 || '01-01-2021'
+    var date2 = date2 || '01-03-2022'
+    new Date().toLocaleDateString()
+    date1 = new Date(date1).getTime()
+    date2 = new Date(date2).getTime()
+    if( date1>date2){
+        return new Date(randomValueBetween(date2,date1)).toLocaleDateString()   
+    } else{
+        return new Date(randomValueBetween(date1, date2)).toLocaleDateString()  
+
+    }
+}
+randomDate();
+
+
+
 for (let i = 1; i <= 20; i++) {
     fetch(`https://jsonplaceholder.typicode.com/todos/${i}`)
     .then(res => res.json())
@@ -54,7 +76,7 @@ for (let i = 1; i <= 20; i++) {
         userId: data.userId,
         title: data.title,
         completed: data.completed,
-        date: 2021-02-15,
+        date: `${randomDate()}`,
         priority: `${random}`,
         
         }
@@ -62,6 +84,8 @@ for (let i = 1; i <= 20; i++) {
     ))
 
     const random = Math.floor(Math.random() * 4)
+
+    
 }
 
 console.log(newData);
@@ -91,7 +115,7 @@ console.log(newData);
 //     // console.log(data);
   
     
-//     //pushare data e priorita'
+
 
 //     //sistemare createApp
 
