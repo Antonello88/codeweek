@@ -3,3 +3,43 @@ body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
 }
+
+#oggi {
+
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#futuri {
+
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#conclusi {
+
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+
+.card {
+    cursor: pointer;
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    margin: 15px;
+    padding: 10px;
+    transform-style: preserve-3d;
+    background-color: #fcfcfc;
+    will-change: transform;
+    width: 180px;
+    height: 60px;
+    border-radius: 1rem;
+    box-shadow: 1px 1px 0 1px #f9f9fb, -1px 0 28px 0 rgba(34, 33, 81, 0.01),
+      28px 28px 28px 0 rgba(34, 33, 81, 0.25);
+    transition: 0.4s ease-in-out transform, 0.3s ease-in-out box-shadow;
+  }
