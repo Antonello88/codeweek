@@ -1,5 +1,5 @@
 
-
+//Funzioni Create App.
 const createAppToday = (obj) => {
 
     const ul = document.querySelector('#listApp');
@@ -47,94 +47,87 @@ const createAppFuture = (obj) => {
 }
 
 
-
-
-//Funzione Random Date 
-function randomDate(date1, date2)
-   {
+function randomDate(start, end) {
+    let d = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime())),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+        let today = new Date();
     
-    function randomValueBetween(min, max) {
-      return Math.random() * (max - min) + min;
-    }
+     
 
-    var date1 = date1 || '04-01-2022'
-    var date2 = date2 || '04-10-2022'
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
 
-    new Date().toLocaleDateString()
-    date1 = new Date(date1).getTime()
-    date2 = new Date(date2).getTime()
-    if( date1>date2){
-        return new Date(randomValueBetween(date2,date1)).toLocaleDateString()   
-    } else{
-        return new Date(randomValueBetween(date1, date2)).toLocaleDateString()  
+    // return [day, month, year].join('/');
 
-    }
+    if (d.getTime() > today.getTime())
+        return {
+            date: [day, month, year].join('/'),
+            result: "maggiore"
+        }
+
+        if (d.getTime() < today.getTime())
+        return {
+            date: [day, month, year].join('/'),
+            result: "minore"
+        }
+        if (d.getTime() === today.getTime())
+        return {
+            date: [day, month, year].join('/'),
+            result: "uguale"
+        }
 }
-randomDate();
-
-
-// dataArr = [
-//     '04-01-2022',
-//     '04-02-2022',
-//     '04-03-2022',
-//     '04-04-2022',
-//     '04-05-2022',
-// ]
-// dataArr1 = [
-//     '05-01-2022',
-//     '06-02-2022',
-//     '07-03-2022',
-//     '09-04-2022',
-//     '10-05-2022',
-// ]
-
-
-// const randomDate2 = Math.floor(Math.random() * dataArr.length);
-
-
-const newData = [];
 
 
    fetch(`https://jsonplaceholder.typicode.com/todos`)
     .then(res => res.json())
     .then(data =>     
         { 
-         const filterArr =  data.filter(element => element.id <= 10) 
+         const filterArr =  data.filter(element => element.id <= 20)
          
-         filterArr.forEach(element => 
+         filterArr.forEach(element => { 
 
-            newData.push({
+            const dateResult = randomDate(new Date(2022, 0, 1), new Date(2022, 05, 31));
+            const actualDate = dateResult.date;
+
+            const CurrentObject = {
             id: element.id,
             userId: element.userId,
             title: element.title,
             completed: element.completed,
-            date: `${randomDate()}`,
+            date: actualDate,
             priority: `${Math.floor(Math.random() * 4)}`,
-            })  
-        )
-       
-            
-            const today = "03-08-2022"
-
-
-
-            if (randomDate === today) {
-                newData.map((element) => createAppToday(element))
             }
-            
-             else if (randomDate < today) {
-                newData.map((element) => createAppPast(element))
-            }
+        
+            let today = new Date();
+            const dd = String(today.getDate()).padStart(2, '0');
+            const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+            const yyyy = today.getFullYear();
 
-             else  {
-                newData.map((element) => createAppFuture(element))
+            today = dd + '/' + mm + '/' + yyyy;
+
+
+            if (dateResult.result === "uguale") {
+                createAppToday(CurrentObject) 
+                console.log(`${actualDate} = ${today}` ) 
+            
+            }
+             else if  (dateResult.result === "minore") {
+                createAppPast(CurrentObject) 
+                console.log(`${actualDate} < ${today}` ) 
+             }
+             
+             else if (dateResult.result === "maggiore") {
+                createAppFuture(CurrentObject) 
+                console.log(`${actualDate} > ${today}` ) 
 
             }
         
-
+         }
 
         
-    })
+    )})
         
     
 
