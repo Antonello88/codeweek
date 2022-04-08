@@ -1,58 +1,65 @@
-//inserire in globale selettori section o ul ? 
 
-const createApp = (userId, date) => {
 
-    const ulOggi = document.querySelector('#oggi');
+const createAppToday = (obj) => {
+
+    const ul = document.querySelector('#listApp');
     const liEl = document.createElement("li");
     liEl.classList.add("card");
-    const nameOggi = document.createElement("h3");
+    const priorityApp = document.createElement("h3");
 
-    const data = document.createElement("h3");  //---
-
-    const ulFut = document.querySelector('#futuri');
-    const liFut = document.createElement("li");
-    liFut.classList.add("card");
-    const nameFut = document.createElement("h3");
+    liEl.textContent = obj.date;
+    priorityApp.textContent = obj.priority;
     
-    const ulPast = document.querySelector('#conclusi');
-    const liPast = document.createElement("li");
-    liPast.classList.add("card");
-    const namePast = document.createElement("h3");
-
-    nameOggi.textContent = userId;
-    nameFut.textContent = userId;
-    namePast.textContent = userId;
-
-    data.textContent = date;  //----
-
-    ulOggi.appendChild(liEl);
-
-    ulFut.appendChild(liFut);
-
-    ulPast.appendChild(liPast);
-
-    liEl.appendChild(nameOggi);
-    liFut.appendChild(nameFut);
-    liPast.appendChild(namePast);
-
-    liEl.appendChild(data);
-
+    ul.appendChild(liEl);
+    liEl.appendChild(priorityApp);
+   
 }
 
-createApp();
+const createAppPast = (obj) => {
+
+    const ul = document.querySelector('#listPast');
+    const liElPast = document.createElement("li");
+    liElPast.classList.add("card");
+    const priorityPast = document.createElement("h3");
+
+    liElPast.textContent = obj.date;
+    priorityPast.textContent = obj.priority;
+    
+    ul.appendChild(liElPast);
+    liElPast.appendChild(priorityPast);
+   
+}
 
 
-const newData = [];
+const createAppFuture = (obj) => {
+
+    const ul = document.querySelector('#listFut');
+    const liElFut = document.createElement("li");
+    liElFut.classList.add("card");
+    const priorityFut = document.createElement("h3");
+
+    liElFut.textContent = obj.date;
+    priorityFut.textContent = obj.priority;
+    
+    ul.appendChild(liElFut);
+    liElFut.appendChild(priorityFut);
+   
+}
+
 
 
 
 //Funzione Random Date 
-function randomDate(date1, date2){
+function randomDate(date1, date2)
+   {
+    
     function randomValueBetween(min, max) {
       return Math.random() * (max - min) + min;
     }
-    var date1 = date1 || '01-01-2021'
-    var date2 = date2 || '01-03-2022'
+
+    var date1 = date1 || '04-01-2022'
+    var date2 = date2 || '04-10-2022'
+
     new Date().toLocaleDateString()
     date1 = new Date(date1).getTime()
     date2 = new Date(date2).getTime()
@@ -66,65 +73,112 @@ function randomDate(date1, date2){
 randomDate();
 
 
+// dataArr = [
+//     '04-01-2022',
+//     '04-02-2022',
+//     '04-03-2022',
+//     '04-04-2022',
+//     '04-05-2022',
+// ]
+// dataArr1 = [
+//     '05-01-2022',
+//     '06-02-2022',
+//     '07-03-2022',
+//     '09-04-2022',
+//     '10-05-2022',
+// ]
 
-for (let i = 1; i <= 20; i++) {
-    fetch(`https://jsonplaceholder.typicode.com/todos/${i}`)
+
+// const randomDate2 = Math.floor(Math.random() * dataArr.length);
+
+
+const newData = [];
+
+
+   fetch(`https://jsonplaceholder.typicode.com/todos`)
     .then(res => res.json())
-    .then(data => newData.push(
-        {
-        id: data.id,
-        userId: data.userId,
-        title: data.title,
-        completed: data.completed,
-        date: `${randomDate()}`,
-        priority: `${random}`,
+    .then(data =>     
+        { 
+         const filterArr =  data.filter(element => element.id <= 10) 
+         
+         filterArr.forEach(element => 
+
+            newData.push({
+            id: element.id,
+            userId: element.userId,
+            title: element.title,
+            completed: element.completed,
+            date: `${randomDate()}`,
+            priority: `${Math.floor(Math.random() * 4)}`,
+            })  
+        )
+       
+            
+            const today = "03-08-2022"
+
+
+
+            if (randomDate === today) {
+                newData.map((element) => createAppToday(element))
+            }
+            
+             else if (randomDate < today) {
+                newData.map((element) => createAppPast(element))
+            }
+
+             else  {
+                newData.map((element) => createAppFuture(element))
+
+            }
         
-        }
+
+
         
-    ))
-
-    const random = Math.floor(Math.random() * 4)
-
-    
-}
-
-console.log(newData);
-
-
-
-
-
-
-
-
-
-
-
-
-// const getAPIdata = async (URL, index = "") => {
-//     const res = await fetch (`${URL}${index}`);
-//     return await res.json ();
-    
-//   };
-  
-  
-//   getAPIdata("https://jsonplaceholder.typicode.com/todos").then((data) => {
+    })
+        
     
 
+
   
-//     // console.log(data);
   
     
 
 
-//     //sistemare createApp
 
-//     //
+
+
+      
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
   
-//     // data.map((element) => createApp(element.userId, element.data))
 
-//     console.log(data);
-// });
+
+
+
+
+
+
+
+    
+
+
+
+
 
 
 
