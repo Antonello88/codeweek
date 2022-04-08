@@ -46,7 +46,7 @@ const createAppFuture = (obj) => {
    
 }
 
-
+//Funzione Random Date 
 function randomDate(start, end) {
     let d = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime())),
         month = '' + (d.getMonth() + 1),
@@ -58,8 +58,6 @@ function randomDate(start, end) {
 
     if (month.length < 2) month = '0' + month;
     if (day.length < 2) day = '0' + day;
-
-    // return [day, month, year].join('/');
 
     if (d.getTime() > today.getTime())
         return {
@@ -97,7 +95,7 @@ function randomDate(start, end) {
             title: element.title,
             completed: element.completed,
             date: actualDate,
-            priority: `${Math.floor(Math.random() * 4)}`,
+            priority: "Priority" + `${Math.floor(Math.random() * 4)}`,
             }
         
             let today = new Date();
